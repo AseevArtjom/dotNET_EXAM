@@ -1,0 +1,34 @@
+﻿<Window x:Class="dotNET_EXAM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dotNET_EXAM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="750" Width="1200" Background="{StaticResource PrimaryColor}" 
+        Foreground="{StaticResource AccentColor}" FontSize="26"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="900px"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="650"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Width="600">
+            <Label Margin="0,40,0,0" FontFamily="Bahnschrift">Login :</Label>
+            <TextBox Style="{StaticResource RoundedTextBox}" Background="{StaticResource AccentColor}" Height="60" FontFamily="Cascadia Code" Padding="15,15" Name="LoginTextBox"></TextBox>
+            <Label FontFamily="Bahnschrift" Foreground="Red" x:Name="LoginErrorLabel"> </Label>
+            <Label Margin="0,40,0,0" FontFamily="Bahnschrift">Password :</Label>
+            <TextBox Style="{StaticResource RoundedTextBox}" Background="{StaticResource AccentColor}" Height="60" FontFamily="Cascadia Code" Padding="15,15" Name="PasswordTextBox"></TextBox>
+            <Label FontFamily="Bahnschrift" Foreground="Red" x:Name="PasswordErrorLabel"></Label>
+            <Button Background="{StaticResource SecondaryColor}" Style="{StaticResource RoundedButton}" Margin="0,80,0,0" Height="60" FontFamily="Bahnschrift" FontSize="26" Foreground="{StaticResource AccentColor}" Click="Submit">Login</Button>
+            <TextBlock x:Name="test" Foreground="White">123</TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>
