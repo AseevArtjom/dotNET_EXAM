@@ -15,5 +15,6 @@ namespace dotNET_EXAM.Models
         public string PasswordHash { get; set; }
 
         public ICollection<UserRole> UserRoles { get; set; }
+
     }
 }

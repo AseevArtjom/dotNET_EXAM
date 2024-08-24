@@ -11,10 +11,12 @@
             <Color x:Key="PrimaryColorValue">#6675FF</Color>
             <Color x:Key="SecondaryColorValue">#3DC2FF</Color>
             <Color x:Key="AccentColorValue">#F4F5FB</Color>
+            <Color x:Key="BackgroundColorValue">#9795fc</Color>
 
             <SolidColorBrush x:Key="PrimaryColor" Color="{StaticResource PrimaryColorValue}" />
             <SolidColorBrush x:Key="SecondaryColor" Color="{StaticResource SecondaryColorValue}" />
             <SolidColorBrush x:Key="AccentColor" Color="{StaticResource AccentColorValue}" />
+            <SolidColorBrush x:Key="BackgroundColor" Color="{StaticResource BackgroundColorValue}" />
 
             <Style x:Key="RoundedTextBox" TargetType="TextBox">
                 <Setter Property="Padding" Value="12.5,12.5" />
@@ -25,6 +27,56 @@
                             <Border Background="{TemplateBinding Background}"
                                     CornerRadius="20"
                                     Padding="{TemplateBinding Padding}">
+                                <ScrollViewer x:Name="PART_ContentHost" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BigRoundedTextBox" TargetType="TextBox">
+                <Setter Property="Padding" Value="12.5,12.5" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border Background="{TemplateBinding Background}"
+                        CornerRadius="10"
+                        Padding="{TemplateBinding Padding}">
+                                <ScrollViewer x:Name="PART_ContentHost" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="RoundedPasswordBox" TargetType="PasswordBox">
+                <Setter Property="Padding" Value="12.5,12.5" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="PasswordBox">
+                            <Border Background="{TemplateBinding Background}"
+                        CornerRadius="20"
+                        Padding="{TemplateBinding Padding}">
+                                <ScrollViewer x:Name="PART_ContentHost" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="SecondRoundedTextBox" TargetType="TextBox">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border 
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="5"
+                    Padding="{TemplateBinding Padding}">
                                 <ScrollViewer x:Name="PART_ContentHost" />
                             </Border>
                         </ControlTemplate>
@@ -54,6 +106,47 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+            </Style>
+
+            <Style x:Key="NoHoverButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="AnswerButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="{StaticResource SecondaryColor}" />
+                <Setter Property="Width" Value="900" />
+                <Setter Property="Height" Value="60" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="Margin" Value="0,20,0,0" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="Green" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="ContextMenu">
+                <Setter Property="IsHitTestVisible" Value="True"></Setter>
             </Style>
             
         </ResourceDictionary>

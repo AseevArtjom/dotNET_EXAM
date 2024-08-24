@@ -16,6 +16,10 @@ namespace dotNET_EXAM.Models.Db
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
 
+        public DbSet<Test> Tests { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserRole>()
@@ -34,7 +38,7 @@ namespace dotNET_EXAM.Models.Db
 
         public async Task<User> FindUserByLoginAsync(string login)
         {
-            var FoundUser = await Users.FirstOrDefaultAsync(u => u.Login == login);
+            var FoundUser = await Users.Include(ur => ur.UserRoles).ThenInclude(r => r.Role).FirstOrDefaultAsync(u => u.Login == login);
             if (FoundUser != null)
             {
                 return FoundUser;

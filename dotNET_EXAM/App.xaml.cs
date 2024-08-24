@@ -20,9 +20,9 @@ namespace dotNET_EXAM
             {
                 if (!context.Users.Any())
                 {
-                    var user = new User { Username = "testuser", Login = "testlogin" };
+                    var user = new User { Username = "user", Login = "user" };
                     var userManager = new UserManager();
-                    user.PasswordHash = userManager.HashPassword(user, "testpassword");
+                    user.PasswordHash = userManager.HashPassword(user, "123");
                     context.Users.Add(user);
                     context.SaveChanges();
                 }

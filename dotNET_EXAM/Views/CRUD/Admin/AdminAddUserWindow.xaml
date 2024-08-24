@@ -1,0 +1,36 @@
+﻿<Window x:Class="dotNET_EXAM.Views.CRUD.Admin.AdminAddUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dotNET_EXAM.Views.CRUD.Admin"
+        mc:Ignorable="d"
+        Title="AddUser" MinHeight="780" MinWidth="500" MaxHeight="780" MaxWidth="500">
+    <Grid Margin="30,40,30,40">
+        <StackPanel>
+            <Label HorizontalAlignment="Center" FontSize="30" FontFamily="Bahnschrift SemiBold">New User</Label>
+
+            <TextBox Margin="0,20,0,0" Name="UserNameTextBox" LostFocus="UserNameLostFocus" Width="350" BorderThickness="2" BorderBrush="#DCDCDC" FontSize="24" FontFamily="Bahnschrift Light" Padding="10,0,10,0" Style="{StaticResource SecondRoundedTextBox}" Background="{StaticResource AccentColor}" Height="50" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+            <TextBox Margin="20,-50,0,0" Width="350" FontSize="20" Style="{x:Null}" Background="Transparent" Foreground="#5c5c5c" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" BorderThickness="0" x:Name="UserNameWaterMarkedText" Text="UserName" GotFocus="UserNameWaterMarkGotFocus"></TextBox>
+            <Label x:Name="UserNameErrorLabel" Height="25" Foreground="Red" Margin="50,5,0,0" HorizontalAlignment="Left" FontSize="14" FontFamily="Bahnschrift SemiBold"></Label>
+
+            <TextBox Name="LoginTextBox" Width="350" LostFocus="LoginLostFocus" BorderThickness="2" BorderBrush="#DCDCDC" FontSize="24" FontFamily="Bahnschrift Light" Padding="10,0,10,0" Style="{StaticResource SecondRoundedTextBox}" Background="{StaticResource AccentColor}" Height="50" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+            <TextBox Margin="20,-50,0,0" Width="350" FontSize="20" Style="{x:Null}" Background="Transparent" Foreground="#5c5c5c" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" BorderThickness="0" x:Name="LoginWaterMarkedText" Text="Login" GotFocus="LoginWaterMarkGotFocus"></TextBox>
+            <Label x:Name="LoginErrorLabel" Height="25" Foreground="Red" Margin="50,5,0,0" HorizontalAlignment="Left" FontSize="14" FontFamily="Bahnschrift SemiBold"></Label>
+
+            <TextBox Name="PasswordTextBox" LostFocus="PasswordLostFocus" Width="350" BorderThickness="2" BorderBrush="#DCDCDC" FontSize="24" FontFamily="Bahnschrift Light" Padding="10,0,10,0" Style="{StaticResource SecondRoundedTextBox}" Background="{StaticResource AccentColor}" Height="50" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+            <TextBox  Margin="20,-50,0,0" Width="350" FontSize="20" Style="{x:Null}" Background="Transparent" Foreground="#5c5c5c" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" BorderThickness="0" x:Name="PasswordWaterMarkedText" Text="Password" GotFocus="PasswordWaterMarkGotFocus"></TextBox>
+            <Label x:Name="PasswordErrorLabel" Height="25" Foreground="Red" Margin="50,5,0,0" HorizontalAlignment="Left" FontSize="14" FontFamily="Bahnschrift SemiBold"></Label>
+
+            <TextBox Name="ConfirmPasswordTextBox" LostFocus="ConfirmPasswordLostFocus" Width="350" BorderThickness="2" BorderBrush="#DCDCDC" FontSize="24" FontFamily="Bahnschrift Light" Padding="10,0,10,0" Style="{StaticResource SecondRoundedTextBox}" Background="{StaticResource AccentColor}" Height="50" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+            <TextBox Margin="20,-50,0,0" Width="350" FontSize="20" Style="{x:Null}" Background="Transparent" Foreground="#5c5c5c" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" BorderThickness="0" x:Name="ConfirmPasswordWaterMarkedText" Text="Confirm password" GotFocus="ConfirmPasswordWaterMarkGotFocus"></TextBox>
+            <Label x:Name="ConfirmPasswordErrorLabel" Height="25" Foreground="Red" Margin="50,5,0,0" HorizontalAlignment="Left" FontSize="14" FontFamily="Bahnschrift SemiBold"></Label>
+
+            <Label Height="30" Width="350" FontSize="20" Foreground="Black" HorizontalContentAlignment="Left">Role:</Label>
+            <ComboBox Margin="0,10,0,0" Name="RoleComboBox" BorderThickness="1" BorderBrush="Black" Width="350" Height="40" FontSize="24" FontFamily="Bahnschrift Light" Padding="10,0,10,0" ItemsSource="{Binding Roles}" SelectedItem="{Binding SelectedRole}" DisplayMemberPath="Name"/>
+
+
+            <Button Click="CreateUser_Click" Height="40" Width="350" Margin="0,160,0,0" FontSize="20" Background="{StaticResource PrimaryColor}" Foreground="{StaticResource AccentColor}">Create</Button>
+        </StackPanel>
+    </Grid>
+</Window>
