@@ -1,5 +1,8 @@
-﻿using dotNET_EXAM.Services;
+﻿using dotNET_EXAM.Models.Db;
+using dotNET_EXAM.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,6 +14,19 @@ namespace dotNET_EXAM.Views.CRUD.Admin.AdminCreateTest
         {
             InitializeComponent();
             TestNavigatorObject.pageSwitcher = this;
+        }
+
+        public AddTestWindow(bool isTestCreated)
+        {
+            if (isTestCreated)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+            else
+            {
+                this.DialogResult = false;
+            }
         }
         public void Navigate(UserControl nextPage)
         {
@@ -32,29 +48,53 @@ namespace dotNET_EXAM.Views.CRUD.Admin.AdminCreateTest
         }
 
 
-        private void Next_Click(object sender, RoutedEventArgs e)
+        private async Task<bool> TestExistsAsync(string testName)
+        {
+            using (var context = new ProgramContext())
+            {
+                var lowerTestName = testName.ToLower();
+                return await context.Tests.AnyAsync(t => t.Name.ToLower() == lowerTestName);
+            }
+        }
+
+        private async void Next_Click(object sender, RoutedEventArgs e)
         {
             TestNameErrorLabel.Content = "";
             TestDescriptionErrorLabel.Content = "";
-            string TestName = TestNameTextBox.Text;
-            string TestDescription = TestDescriptionTextBox.Text;
-            if (string.IsNullOrWhiteSpace(TestName))
+            string testName = TestNameTextBox.Text.Trim();
+            string testDescription = TestDescriptionTextBox.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(testName))
             {
                 TestNameErrorLabel.Content = "Required field";
                 return;
-
             }
-            else if (string.IsNullOrWhiteSpace(TestDescription))
+            else if (string.IsNullOrWhiteSpace(testDescription))
             {
                 TestDescriptionErrorLabel.Content = "Required field";
                 return;
             }
+            else if (await TestExistsAsync(testName))
+            {
+                TestNameErrorLabel.Content = "A test with this name already exists";
+                return;
+            }
             else
             {
-                TestNavigatorObject.Switch(new QuestionsPage(TestName,TestDescription));
+                var questionsPage = new QuestionsPage(testName, testDescription);
+                questionsPage.TestCreated += OnTestCompleted;
+                TestNavigatorObject.Switch(questionsPage);
             }
         }
 
-        
+
+
+        private void OnTestCompleted()
+        {
+            this.DialogResult = true;
+            this.Close();
+        }
+
+
     }
 }

@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dotNET_EXAM.Views.CRUD.Admin.AdminCreateTest"
         mc:Ignorable="d"
-        Title="AdminAddTestWindow" Height="600" Width="800" Background="{StaticResource PrimaryColor}">
+        Title="AdminAddTestWindow" Height="620" Width="800" Background="{StaticResource PrimaryColor}">
     <Grid Margin="50,50,50,0">
         <StackPanel>
             <TextBox x:Name="TestNameTextBox" Style="{StaticResource RoundedTextBox}" Background="{StaticResource AccentColor}" Height="60" FontSize="30" VerticalContentAlignment="Center" FontFamily="Cascadia Code" Padding="15,0"></TextBox>
             <Label x:Name="TestNameErrorLabel" Height="25" Foreground="Red" Margin="10,10,0,0" HorizontalAlignment="Left" FontSize="14" FontFamily="Bahnschrift SemiBold"></Label>
-            <TextBox x:Name="TestDescriptionTextBox" Margin="0,50,0,0" Style="{StaticResource BigRoundedTextBox}" Background="{StaticResource AccentColor}" TextWrapping="Wrap" Height="150" FontSize="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" FontFamily="Cascadia Code" Padding="10,5"></TextBox>
+            <TextBox x:Name="TestDescriptionTextBox" Margin="0,50,0,0" Style="{StaticResource BigRoundedTextBox}" Background="{StaticResource AccentColor}" TextWrapping="Wrap" Height="220" FontSize="30" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" FontFamily="Cascadia Code" Padding="10,5"></TextBox>
             <Label x:Name="TestDescriptionErrorLabel" Height="25" Foreground="Red" Margin="0,10,0,0" HorizontalAlignment="Left" FontSize="14" FontFamily="Bahnschrift SemiBold"></Label>
             <Button Click="Next_Click" Foreground="{StaticResource AccentColor}" Margin="0,40,0,0" Height="45" FontSize="24" VerticalContentAlignment="Center" Background="{StaticResource SecondaryColor}">Next</Button>
         </StackPanel>

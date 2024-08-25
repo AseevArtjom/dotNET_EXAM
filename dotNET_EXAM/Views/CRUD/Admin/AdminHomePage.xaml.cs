@@ -257,14 +257,19 @@ namespace dotNET_EXAM.Views.CRUD.Admin
 
         private void AddTest_Click(object sender, RoutedEventArgs e)
         {
-            var AddTestWindow = new AddTestWindow();
-            AddTestWindow.ShowDialog();
+            var addTestWindow = new AddTestWindow();
+            addTestWindow.ShowDialog();
 
-            if (AddTestWindow.DialogResult == true)
+            if (addTestWindow.DialogResult == true)
             {
                 SweetAlert.Show("Success", "Successful test addition", SweetAlertButton.OK, SweetAlertImage.SUCCESS);
 
-                
+                var newTests = LoadTestsFromDB();
+                TestsList.Clear();
+                foreach (var test in newTests)
+                {
+                    TestsList.Add(test);
+                }
             }
             else
             {
@@ -272,7 +277,8 @@ namespace dotNET_EXAM.Views.CRUD.Admin
             }
         }
 
-        private void DeleteTest_Click(object sender, RoutedEventArgs e)
+
+        private async void DeleteTest_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = LVTest.SelectedItem as Test;
 
@@ -285,25 +291,31 @@ namespace dotNET_EXAM.Views.CRUD.Admin
 
             if (result == SweetAlertResult.YES)
             {
-                try
+                using (var context = new ProgramContext())
                 {
-                    using (var context = new ProgramContext())
-                    {
-                        context.Tests.Remove(selectedItem);
-                        context.SaveChangesAsync();
-                    }
+                    var testToDelete = context.Tests
+                        .Include(t => t.Questions)
+                        .ThenInclude(q => q.Answers)
+                        .FirstOrDefault(t => t.Id == selectedItem.Id);
 
-                    TestsList.Remove(selectedItem);
-                    SweetAlert.Show("Success", "Test successfully removed!", SweetAlertButton.OK, SweetAlertImage.SUCCESS);
+                    if (testToDelete != null)
+                    {
+                        foreach (var question in testToDelete.Questions)
+                        {
+                            context.Answers.RemoveRange(question.Answers);
+                        }
+                        context.Questions.RemoveRange(testToDelete.Questions);
+
+                        context.Tests.Remove(testToDelete);
+
+                        await context.SaveChangesAsync();
+                    }
                 }
-                catch (Exception ex)
-                {
-                    SweetAlert.Show("Error", $"Failed to remove test! {ex.Message}", SweetAlertButton.OK, SweetAlertImage.ERROR);
-                }
+
+                TestsList.Remove(selectedItem);
+                SweetAlert.Show("Success", "Test successfully removed!", SweetAlertButton.OK, SweetAlertImage.SUCCESS);
             }
         }
-
-
 
     }
 
