@@ -1,29 +1,32 @@
-﻿using dotNET_EXAM.Models;
-using dotNET_EXAM.Models.Db;
+﻿using dotNET_EXAM.Models.Db;
+using dotNET_EXAM.Models;
 using dotNET_EXAM.Services;
 using dotNET_EXAM.Views.CRUD.Admin.AdminCreateTest;
-using Microsoft.EntityFrameworkCore;
-using SweetAlertSharp;
+using dotNET_EXAM.Views.CRUD.Admin;
 using SweetAlertSharp.Enums;
+using SweetAlertSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using System.Windows.Threading;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.EntityFrameworkCore;
 
-namespace dotNET_EXAM.Views.CRUD.Admin
+namespace dotNET_EXAM.Views.CRUD.Teacher
 {
-    public partial class AdminHomePage : UserControl
+    public partial class TeacherHomePage : UserControl
     {
-        public ObservableCollection<User> UsersList { get; set; }
         public ObservableCollection<Test> TestsList { get; set; }
         public Test SelectedTest { get; set; }
 
@@ -35,7 +38,7 @@ namespace dotNET_EXAM.Views.CRUD.Admin
         private TimeSpan elapsedTime;
 
 
-        public AdminHomePage()
+        public TeacherHomePage()
         {
             InitializeComponent();
             InitializeData();
@@ -44,17 +47,11 @@ namespace dotNET_EXAM.Views.CRUD.Admin
         private void InitializeData()
         {
             UserLabel.Content = SessionManager.CurrentUser.Username;
-            UsersList = LoadUsersFromDB();
             TestsList = LoadTestsFromDB();
             LVTest.ItemsSource = TestsList;
             DataContext = this;
         }
 
-        private ObservableCollection<User> LoadUsersFromDB()
-        {
-            using var context = new ProgramContext();
-            return new ObservableCollection<User>(context.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role).ToList());
-        }
 
         private ObservableCollection<Test> LoadTestsFromDB()
         {
@@ -67,72 +64,6 @@ namespace dotNET_EXAM.Views.CRUD.Admin
             NavigatorObject.Switch(new LoginPage());
         }
 
-        private async void DeleteUser_Click(object sender, RoutedEventArgs e)
-        {
-            if (UsersDataGrid.SelectedItem is User selectedUser)
-            {
-                if (selectedUser.Id == SessionManager.CurrentUser.Id)
-                {
-                    SweetAlert.Show("Caution", "You can't delete your account", SweetAlertButton.OK, SweetAlertImage.INFORMATION);
-                    return;
-                }
-
-                using var context = new ProgramContext();
-                UsersList.Remove(selectedUser);
-                context.Users.Remove(selectedUser);
-                await context.SaveChangesAsync();
-
-                UsersDataGrid.Items.Refresh();
-                SweetAlert.Show("Success", "Successful user deletion", SweetAlertButton.OK, SweetAlertImage.SUCCESS);
-            }
-            else
-            {
-                SweetAlert.Show("Error", "Failed to delete user", SweetAlertButton.OK, SweetAlertImage.ERROR);
-            }
-        }
-
-        private void ResetPassword_Click(object sender, RoutedEventArgs e)
-        {
-            if (UsersDataGrid.SelectedItem is not User selectedUser) return;
-
-            var resetPasswordWindow = new AdminResetPasswordWindow(selectedUser);
-            resetPasswordWindow.ShowDialog();
-
-            if (resetPasswordWindow.DialogResult == true)
-            {
-                SweetAlert.Show("Success", "Successful password change", SweetAlertButton.OK, SweetAlertImage.SUCCESS);
-            }
-            else
-            {
-                SweetAlert.Show("Error", "Failed to reset password", SweetAlertButton.OK, SweetAlertImage.ERROR);
-            }
-        }
-
-        private void AddUser_Click(object sender, RoutedEventArgs e)
-        {
-            var addUserWindow = new AdminAddUserWindow();
-            addUserWindow.ShowDialog();
-
-            if (addUserWindow.DialogResult == true)
-            {
-                SweetAlert.Show("Success", "Successful user addition", SweetAlertButton.OK, SweetAlertImage.SUCCESS);
-
-                var newUsers = LoadUsersFromDB();
-                foreach (var user in newUsers)
-                {
-                    if (!UsersList.Any(u => u.Id == user.Id))
-                    {
-                        UsersList.Add(user);
-                    }
-                }
-            }
-            else
-            {
-                SweetAlert.Show("Error", "Failed to add user", SweetAlertButton.OK, SweetAlertImage.ERROR);
-            }
-        }
-
-
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
             if (sender is ListViewItem item && item.DataContext is Test test)
@@ -140,28 +71,6 @@ namespace dotNET_EXAM.Views.CRUD.Admin
                 SelectedTest = test;
             }
         }
-
-        private void SearchUsersTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var filterText = SearchUserTextBox.Text.ToLower();
-
-            var collectionView = CollectionViewSource.GetDefaultView(UsersDataGrid.ItemsSource);
-
-            if (collectionView != null)
-            {
-                collectionView.Filter = item =>
-                {
-                    if (item is User user)
-                    {
-                        return user.Username.ToLower().Contains(filterText) ||
-                               user.Login.ToLower().Contains(filterText);
-                    }
-                    return false;
-                };
-            }
-        }
-
-
         // TEST
         private void PassTest_Click(object sender, RoutedEventArgs e)
         {
@@ -316,6 +225,4 @@ namespace dotNET_EXAM.Views.CRUD.Admin
         }
 
     }
-
 }
-

@@ -2,6 +2,7 @@
 using dotNET_EXAM.Services;
 using dotNET_EXAM.Views.CRUD.Admin;
 using dotNET_EXAM.Views.CRUD.Student;
+using dotNET_EXAM.Views.CRUD.Teacher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,7 +84,7 @@ namespace dotNET_EXAM
                     }
                     else if (currentUser.UserRoles.Any(r => r.Role.Name == "Teacher"))
                     {
-                        
+                        NavigatorObject.Switch(new TeacherHomePage());   
                     }
                     else if(currentUser.UserRoles.Any(r => r.Role.Name == "Student"))
                     {

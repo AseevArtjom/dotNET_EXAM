@@ -23,10 +23,10 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Width="600">
             <Label Margin="0,20,0,0" FontFamily="Bahnschrift" Foreground="{StaticResource AccentColor}" FontSize="56" HorizontalContentAlignment="Center">Sing in</Label>
             <Label Foreground="{StaticResource AccentColor}" Margin="0,30,0,0" FontFamily="Bahnschrift">Login :</Label>
-            <TextBox Text="user" Style="{StaticResource RoundedTextBox}" Background="{StaticResource AccentColor}" Height="60" FontFamily="Cascadia Code" Padding="15,15" Name="LoginTextBox"></TextBox>
+            <TextBox Style="{StaticResource RoundedTextBox}" Background="{StaticResource AccentColor}" Height="60" FontFamily="Cascadia Code" Padding="15,15" Name="LoginTextBox"></TextBox>
             <Label Height="40" Margin="0,10,0,0" FontFamily="Bahnschrift" Foreground="Red" x:Name="LoginErrorLabel"> </Label>
             <Label Foreground="{StaticResource AccentColor}" Margin="0,40,0,0" FontFamily="Bahnschrift">Password :</Label>
-            <PasswordBox Password="123" Style="{StaticResource RoundedPasswordBox}" Background="{StaticResource AccentColor}" Height="60" FontFamily="Cascadia Code" Padding="15,15" Name="PasswordBox"></PasswordBox>
+            <PasswordBox Style="{StaticResource RoundedPasswordBox}" Background="{StaticResource AccentColor}" Height="60" FontFamily="Cascadia Code" Padding="15,15" Name="PasswordBox"></PasswordBox>
             <Label Height="40" Margin="0,10,0,0" FontFamily="Bahnschrift" Foreground="Red" x:Name="PasswordErrorLabel"></Label>
             <Button Background="{StaticResource SecondaryColor}" Style="{StaticResource RoundedButton}" Margin="0,50,0,0" Height="60" FontFamily="Bahnschrift" FontSize="26" Foreground="{StaticResource AccentColor}" Click="Submit">Login</Button>
         </StackPanel>
