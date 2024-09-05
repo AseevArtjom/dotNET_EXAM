@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,9 @@ namespace dotNET_EXAM.Models.Db
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=/DataBaseFile.db");
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..","DataBaseFile.db");
+            optionsBuilder.UseSqlite($"Data Source={path}");
+
         }
 
         public DbSet<User> Users { get; set; }
