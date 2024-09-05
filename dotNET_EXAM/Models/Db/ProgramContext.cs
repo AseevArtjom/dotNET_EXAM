@@ -9,7 +9,7 @@ namespace dotNET_EXAM.Models.Db
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=DataBaseFile.db");
+            optionsBuilder.UseSqlite("Data Source=/DataBaseFile.db");
         }
 
         public DbSet<User> Users { get; set; }

@@ -11,22 +11,6 @@ namespace dotNET_EXAM
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            AddTestUser();
-        }
-
-        private void AddTestUser()
-        {
-            using (var context = new ProgramContext())
-            {
-                if (!context.Users.Any())
-                {
-                    var user = new User { Username = "user", Login = "user" };
-                    var userManager = new UserManager();
-                    user.PasswordHash = userManager.HashPassword(user, "123");
-                    context.Users.Add(user);
-                    context.SaveChanges();
-                }
-            }
         }
     }
 }
